@@ -25,7 +25,7 @@ class SkipCashController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $user = \App\Models\User::find($request->user_id);
+        $user = \App\Models\User::findOrFail($request->user_id);
 
         // Generate unique transaction ID
         $transactionId = 'COURSE_'.$course->id.'_'.time();
@@ -77,7 +77,7 @@ class SkipCashController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $user = \App\Models\User::find($request->user_id);
+        $user = \App\Models\User::findOrFail($request->user_id);
 
         // Generate unique transaction ID
         $transactionId = 'EVENT_'.$event->id.'_'.time();
@@ -131,7 +131,7 @@ class SkipCashController extends Controller
             'price' => 'required|numeric|min:0',
         ]);
 
-        $user = \App\Models\User::find($request->user_id);
+        $user = \App\Models\User::findOrFail($request->user_id);
 
         // Generate unique transaction ID
         $transactionId = 'SUBSCRIPTION_'.$request->plan_type.'_'.time();
