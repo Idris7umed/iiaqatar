@@ -312,6 +312,7 @@ class SkipCashController extends Controller
                 if ($subscription) {
                     $subscription->update([
                         'status' => 'active',
+                        'payment_method' => 'skipcash',
                     ]);
                 }
             }
