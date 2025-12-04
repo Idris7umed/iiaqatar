@@ -324,9 +324,11 @@ class SkipCashController extends Controller
      */
     private function extractUserId($paymentData)
     {
-        // Try to extract from Custom2 field
-        if (isset($paymentData['custom2'])) {
-            preg_match('/user_id:(\d+)/', $paymentData['custom2'], $matches);
+        // Try to extract from Custom2 field (check both uppercase and lowercase)
+        $custom2Value = $paymentData['custom2'] ?? $paymentData['Custom2'] ?? null;
+        
+        if ($custom2Value) {
+            preg_match('/user_id:(\d+)/', $custom2Value, $matches);
             if (isset($matches[1])) {
                 return $matches[1];
             }
