@@ -18,6 +18,7 @@ class Subscription extends Model
         'started_at',
         'expires_at',
         'stripe_subscription_id',
+        'payment_method',
     ];
 
     protected $casts = [

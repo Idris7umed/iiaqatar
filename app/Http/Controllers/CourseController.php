@@ -32,6 +32,7 @@ class CourseController extends Controller
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
+            'payment_method' => 'nullable|in:stripe,skipcash',
         ]);
 
         $enrollment = Enrollment::create([
@@ -39,8 +40,20 @@ class CourseController extends Controller
             'user_id' => $request->user_id,
             'status' => 'active',
             'payment_status' => $course->price > 0 ? 'unpaid' : 'paid',
+            'payment_method' => $request->payment_method,
             'amount_paid' => $course->discount_price ?? $course->price,
         ]);
+
+        // If using SkipCash and course requires payment, return payment link URL
+        if ($course->price > 0 && $request->payment_method === 'skipcash') {
+            return response()->json([
+                'message' => 'Enrollment successful',
+                'enrollment' => $enrollment,
+                'payment_required' => true,
+                'payment_method' => 'skipcash',
+                'payment_url' => route('skipcash.payment.course', ['course' => $course->id]),
+            ], 201);
+        }
 
         return response()->json([
             'message' => 'Enrollment successful',

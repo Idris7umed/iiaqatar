@@ -30,6 +30,7 @@ class EventController extends Controller
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
+            'payment_method' => 'nullable|in:stripe,skipcash',
         ]);
 
         $registration = EventRegistration::create([
@@ -37,8 +38,20 @@ class EventController extends Controller
             'user_id' => $request->user_id,
             'status' => 'pending',
             'payment_status' => $event->price > 0 ? 'unpaid' : 'paid',
+            'payment_method' => $request->payment_method,
             'amount_paid' => $event->price,
         ]);
+
+        // If using SkipCash and event requires payment, return payment link URL
+        if ($event->price > 0 && $request->payment_method === 'skipcash') {
+            return response()->json([
+                'message' => 'Registration successful',
+                'registration' => $registration,
+                'payment_required' => true,
+                'payment_method' => 'skipcash',
+                'payment_url' => route('skipcash.payment.event', ['event' => $event->id]),
+            ], 201);
+        }
 
         return response()->json([
             'message' => 'Registration successful',
