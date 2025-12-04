@@ -52,7 +52,7 @@ A comprehensive Laravel-based web application for managing blogs, events, course
 - **Build Tool:** Vite
 - **Authentication:** Laravel Sanctum
 - **Permissions:** Spatie Laravel Permission
-- **Payments:** Laravel Cashier (Stripe)
+- **Payments:** Laravel Cashier (Stripe), SkipCash Payment Gateway
 
 ## Installation
 
@@ -143,9 +143,11 @@ Visit `http://localhost:8000` in your browser.
 
 ## Configuration
 
-### Stripe Payment Integration (Optional)
+### Payment Gateway Integration (Optional)
 
-To enable payment features for courses and events:
+#### Stripe Payment Integration
+
+To enable Stripe payment features for courses and events:
 
 1. Sign up for a Stripe account at https://stripe.com
 2. Get your API keys from the Stripe dashboard
@@ -156,6 +158,24 @@ STRIPE_KEY=your_publishable_key
 STRIPE_SECRET=your_secret_key
 STRIPE_WEBHOOK_SECRET=your_webhook_secret
 ```
+
+#### SkipCash Payment Gateway Integration
+
+To enable SkipCash payment gateway:
+
+1. Sign up for a SkipCash account
+2. Get your API credentials from the SkipCash dashboard
+3. Add to your `.env` file:
+
+```env
+SKIPCASH_CLIENT_ID=your_client_id
+SKIPCASH_KEY_ID=your_key_id
+SKIPCASH_KEY_SECRET=your_key_secret
+SKIPCASH_WEBHOOK_KEY=your_webhook_key
+SKIPCASH_URL=https://skipcashtest.azurewebsites.net
+```
+
+For detailed SkipCash integration documentation, see [SKIPCASH_INTEGRATION.md](SKIPCASH_INTEGRATION.md).
 
 ### Email Configuration
 

@@ -50,3 +50,6 @@ Route::middleware(['auth'])->group(function () {
     // Course enrollment
     Route::post('/courses/{course}/enroll', [CourseController::class, 'enroll'])->name('courses.enroll');
 });
+
+// SkipCash payment routes
+require __DIR__.'/skipcash.php';
