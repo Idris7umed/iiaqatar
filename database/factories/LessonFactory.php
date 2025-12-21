@@ -28,7 +28,8 @@ class LessonFactory extends Factory
             'video_url' => fake()->optional()->url(),
             'duration' => fake()->numberBetween(10, 120),
             'order' => fake()->numberBetween(1, 20),
-            'is_preview' => fake()->boolean(20),
+            'is_free' => fake()->boolean(20),
+            'is_published' => fake()->boolean(90),
         ];
     }
 }
