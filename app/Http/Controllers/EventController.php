@@ -8,20 +8,38 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $events = Event::upcoming()
             ->orderBy('start_date', 'asc')
             ->paginate(12);
 
+        if ($request->wantsJson()) {
+            return response()->json([
+                'data' => $events->items(),
+                'pagination' => [
+                    'total' => $events->total(),
+                    'per_page' => $events->perPage(),
+                    'current_page' => $events->currentPage(),
+                    'last_page' => $events->lastPage(),
+                ],
+            ]);
+        }
+
         return view('events.index', compact('events'));
     }
 
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
         $event = Event::where('slug', $slug)
             ->where('status', 'published')
             ->firstOrFail();
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'data' => $event,
+            ]);
+        }
 
         return view('events.show', compact('event'));
     }

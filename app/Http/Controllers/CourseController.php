@@ -8,22 +8,40 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $courses = Course::with(['instructor', 'category'])
             ->published()
             ->orderBy('created_at', 'desc')
             ->paginate(12);
 
+        if ($request->wantsJson()) {
+            return response()->json([
+                'data' => $courses->items(),
+                'pagination' => [
+                    'total' => $courses->total(),
+                    'per_page' => $courses->perPage(),
+                    'current_page' => $courses->currentPage(),
+                    'last_page' => $courses->lastPage(),
+                ],
+            ]);
+        }
+
         return view('courses.index', compact('courses'));
     }
 
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
         $course = Course::with(['instructor', 'category', 'lessons'])
             ->where('slug', $slug)
             ->published()
             ->firstOrFail();
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'data' => $course,
+            ]);
+        }
 
         return view('courses.show', compact('course'));
     }
