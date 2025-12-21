@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\User;
-use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -111,7 +111,7 @@ class CourseSeeder extends Seeder
                     'course_id' => $course->id,
                     'title' => $lessonData['title'],
                     'slug' => Str::slug($lessonData['title']),
-                    'content' => 'Lesson content for ' . $lessonData['title'],
+                    'content' => 'Lesson content for '.$lessonData['title'],
                     'duration' => $lessonData['duration'],
                     'order' => $index + 1,
                     'is_free' => $lessonData['is_free'],

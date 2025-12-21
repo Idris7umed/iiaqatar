@@ -19,7 +19,7 @@ class EventFactory extends Factory
     {
         $title = fake()->sentence(4);
         $startDate = fake()->dateTimeBetween('+1 week', '+2 months');
-        
+
         return [
             'title' => $title,
             'slug' => Str::slug($title),
@@ -52,7 +52,7 @@ class EventFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             $startDate = fake()->dateTimeBetween('-2 months', '-1 week');
-            
+
             return [
                 'start_date' => $startDate,
                 'end_date' => fake()->dateTimeBetween($startDate, 'now'),

@@ -35,6 +35,6 @@ class Subscription extends Model
     public function scopeActive($query)
     {
         return $query->where('status', 'active')
-                     ->where('expires_at', '>', now());
+            ->where('expires_at', '>', now());
     }
 }

@@ -61,8 +61,8 @@ class Course extends Model
     public function students()
     {
         return $this->belongsToMany(User::class, 'enrollments')
-                    ->withPivot('status', 'progress', 'completed_at')
-                    ->withTimestamps();
+            ->withPivot('status', 'progress', 'completed_at')
+            ->withTimestamps();
     }
 
     public function scopePublished($query)

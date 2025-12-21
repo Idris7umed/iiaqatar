@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('payment_id')->nullable();
             $table->decimal('amount_paid', 10, 2)->default(0);
             $table->timestamps();
-            
+
             $table->unique(['event_id', 'user_id']);
         });
     }

@@ -326,7 +326,7 @@ class SkipCashController extends Controller
     {
         // Try to extract from Custom2 field (check both uppercase and lowercase)
         $custom2Value = $paymentData['custom2'] ?? $paymentData['Custom2'] ?? null;
-        
+
         if ($custom2Value) {
             preg_match('/user_id:(\d+)/', $custom2Value, $matches);
             if (isset($matches[1])) {
@@ -334,6 +334,5 @@ class SkipCashController extends Controller
             }
         }
 
-        return null;
     }
 }

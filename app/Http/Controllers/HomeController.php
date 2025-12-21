@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\Event;
 use App\Models\Course;
-use Illuminate\Http\Request;
+use App\Models\Event;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
