@@ -41,13 +41,13 @@ class Event extends Model
     public function attendees()
     {
         return $this->belongsToMany(User::class, 'event_registrations')
-                    ->withPivot('status', 'payment_status')
-                    ->withTimestamps();
+            ->withPivot('status', 'payment_status')
+            ->withTimestamps();
     }
 
     public function scopeUpcoming($query)
     {
         return $query->where('start_date', '>', now())
-                     ->where('status', 'published');
+            ->where('status', 'published');
     }
 }

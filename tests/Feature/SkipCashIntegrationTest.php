@@ -18,7 +18,7 @@ class SkipCashIntegrationTest extends TestCase
     public function test_skipcash_config_exists(): void
     {
         $this->assertFileExists(config_path('skipcash.php'));
-        
+
         $config = config('skipcash');
         $this->assertIsArray($config);
         $this->assertArrayHasKey('client_id', $config);

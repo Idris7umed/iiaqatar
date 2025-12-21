@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('is_free')->default(false);
             $table->boolean('is_published')->default(true);
             $table->timestamps();
-            
+
             $table->unique(['course_id', 'slug']);
         });
     }

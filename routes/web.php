@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,15 +39,23 @@ Route::prefix('courses')->group(function () {
     Route::get('/{courseSlug}/lessons/{lessonSlug}', [CourseController::class, 'lesson'])->name('courses.lesson');
 });
 
+// Products
+Route::prefix('products')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/virtual', [ProductController::class, 'virtual'])->name('products.virtual');
+    Route::get('/physical', [ProductController::class, 'physical'])->name('products.physical');
+    Route::get('/{slug}', [ProductController::class, 'show'])->name('products.show');
+});
+
 // Protected routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    
+
     // Event registration
     Route::post('/events/{event}/register', [EventController::class, 'register'])->name('events.register');
-    
+
     // Course enrollment
     Route::post('/courses/{course}/enroll', [CourseController::class, 'enroll'])->name('courses.enroll');
 });
